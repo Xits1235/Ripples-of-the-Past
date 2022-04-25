@@ -84,7 +84,7 @@ public class TimeStop extends StandEntityAction {
             TimeHandler.setTimeResumeSounds(world, chunkPos, timeStopTicks, this, user);
             TimeHandler.stopTime(world, timeStopTicks, chunkPos);
             if (timeStopTicks >= 40 && timeStopSound != null && timeStopSound.get() != null) {
-                PacketManager.sendGloballyWithCondition(new PlaySoundAtClientPacket(timeStopSound.get(), SoundCategory.AMBIENT, blockPos, 5.0F, 1.0F), 
+                PacketManager.sendGloballyWithCondition(new PlaySoundAtClientPacket(timeStopSound.get(), SoundCategory.AMBIENT, blockPos, 15.0F, 9.0F), 
                         world.dimension(), player -> (JojoModConfig.COMMON.inTimeStopRange(
                                 chunkPos, new ChunkPos(player.blockPosition()))) && TimeHandler.canPlayerSeeInStoppedTime(player));
             }
@@ -111,6 +111,6 @@ public class TimeStop extends StandEntityAction {
     public TranslationTextComponent getTranslatedName(IPower<?> power, String key) {
         LivingEntity user = power.getUser();
         int timeStopTicks = TimeHandler.getTimeStopTicks(getExpRequirement(), (IStandPower) power, user, INonStandPower.getNonStandPowerOptional(user));
-        return new TranslationTextComponent(key, String.format("%.2f", (float) timeStopTicks / 20F));
+        return new TranslationTextComponent(key, String.format("%.20f", (float) timeStopTicks / 100F));
     }
 }
